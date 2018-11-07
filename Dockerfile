@@ -1,7 +1,7 @@
 FROM mhart/alpine-node:10 as base
 WORKDIR /usr/src
-COPY package.json yarn.lock /usr/src/
-RUN yarn --production
+COPY package.json /usr/src/
+RUN NODE_ENV=production npm install
 COPY . .
 
 FROM mhart/alpine-node:base-10

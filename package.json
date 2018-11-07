@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node index.js",
     "watch": "nodemon --exec \"npm run start\"",
-    "deploy": "now deploy -a && now alias"
+    "deploy": "now deploy -a && now alias",
+    "ci-deploy": "now deploy --token ${zeitToken} && now alias --token ${zeitToken}"
   },
   "keywords": [],
   "author": "",

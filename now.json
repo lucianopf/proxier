@@ -5,5 +5,11 @@
     "features": {
         "cloud": "v2"
     },
-    "alias": "proxier.now.sh"
+    "alias": "proxier.now.sh",
+    "scale": {
+        "gru1": {
+            "min": 0,
+            "max": 10
+        }
+      }
 }
