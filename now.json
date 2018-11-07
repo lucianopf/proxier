@@ -1,0 +1,9 @@
+{
+    "name": "proxier",
+    "public": true,
+    "type": "docker",
+    "features": {
+        "cloud": "v2"
+    },
+    "alias": "proxier.now.sh"
+}
