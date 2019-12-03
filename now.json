@@ -1,18 +1,39 @@
 {
-    "name": "proxier",
-    "public": true,
-    "type": "docker",
-    "features": {
-        "cloud": "v2"
+  "version": 2,
+  "name": "proxier",
+  "alias": ["proxier.now.sh"],
+  "routes": [
+    {
+      "src": "/.*",
+      "headers": {
+        "Access-Control-Allow-Headers": "*",
+        "Access-Control-Allow-Methods": "*",
+        "Access-Control-Allow-Origin": "*"
+      },
+      "continue": true
     },
-    "alias": "proxier.now.sh",
-    "scale": {
-        "gru1": {
-            "min": 0,
-            "max": 10
-        }
+    {
+      "src": "/.*",
+      "methods": ["OPTIONS"],
+      "dest": "200.js"
     },
-    "github": {
-        "autoAlias": false
+    {
+      "src": "/api",
+      "headers": {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "*",
+        "Access-Control-Allow-Headers": "*"
+      },
+      "dest": "/api"
+    },
+    {
+      "src": "/(.*)",
+      "headers": {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "*",
+        "Access-Control-Allow-Headers": "*"
+      },
+      "dest": "/api?url=$1"
     }
+  ]
 }
