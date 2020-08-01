@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "watch": "now dev",
-    "deploy": "now deploy -a && now alias",
-    "ci-deploy": "now deploy --production --token ${zeitToken}"
+    "watch": "vercel dev",
+    "deploy": "vercel deploy -a && vercel alias",
+    "ci-deploy": "vercel deploy --production --token ${zeitToken}"
   },
   "keywords": [],
   "author": "",
@@ -21,6 +21,6 @@
   },
   "devDependencies": {
     "nodemon": "^1.18.6",
-    "now": "*"
+    "vercel": "*"
   }
 }

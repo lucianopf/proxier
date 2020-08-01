@@ -4,27 +4,23 @@
   "alias": ["proxier.now.sh"],
   "routes": [
     {
-      "src": "/.*",
+      "src": "/(.*)",
+      "methods": ["OPTIONS"],
       "headers": {
         "Access-Control-Allow-Headers": "*",
         "Access-Control-Allow-Methods": "*",
         "Access-Control-Allow-Origin": "*"
       },
-      "continue": true
-    },
-    {
-      "src": "/.*",
-      "methods": ["OPTIONS"],
-      "dest": "200.js"
+      "dest": "/api/200.js"
     },
     {
       "src": "/api",
+      "methods": ["POST", "GET", "PUT", "PATCH"],
       "headers": {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "*",
         "Access-Control-Allow-Headers": "*"
-      },
-      "dest": "/api"
+      }
     },
     {
       "src": "/(.*)",

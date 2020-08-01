@@ -1,5 +1,12 @@
 const fetch = require('../lib/request')
 
+function log (message, data) {
+  console.log({
+    message,
+    data,
+  })
+}
+
 function sanitizeHeaders(headers) {
   let sanitizedHeaders = {
     ...headers,
@@ -21,6 +28,15 @@ function sanitizeHeaders(headers) {
       return result
     }, {})
 }
+
+const parseAnyReqBody = req =>
+  new Promise((resolve, reject) => {
+    let body = [];
+    req
+      .on('data', chunk => body.push(chunk))
+      .on('end', () => resolve(Buffer.concat(body).toString()))
+      .on('error', reject)
+  })
 
 module.exports = async (req, res) => {
   const { url, ...reqParams } = req.query
@@ -52,6 +68,12 @@ module.exports = async (req, res) => {
     headers: sanitizedHeaders
   }
 
+  const body = await parseAnyReqBody(req)
+
+  if (!req.body) {
+    req.body = body
+  }
+
   if (req.body) {
     if (req.body.length) {
       options.body = req.body.replace(/\n/g, '')
@@ -60,7 +82,7 @@ module.exports = async (req, res) => {
     }
   }
 
-  console.log('Request made to:', finalUrl)
+  log('Sending request', options)
 
   return fetch(finalUrl, options)
     .then(async ({ response, body }) => {
@@ -70,8 +92,8 @@ module.exports = async (req, res) => {
       return res.send(body)
     })
     .catch(err => {
-      console.log('err ->', err)
-      return res.send(err.message)
+      log('err ->', err)
+      return res.status(500).send(err.message)
     })
 
 }
