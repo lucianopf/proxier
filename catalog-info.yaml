@@ -1,0 +1,13 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: backstage-templates-karavela-api
+  annotations:
+    github.com/project-slug: stone-payments/backstage-templates
+    stone.runtime: karavela
+  labels:
+    sone.runtime: karavela
+spec:
+  type: other
+  lifecycle: unknown
+  owner: stone-payments/fp-cloud-kubernetes
